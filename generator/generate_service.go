@@ -1577,7 +1577,7 @@ func (g *generateCmd) Generate() (err error) {
 	if err != nil {
 		return err
 	}
-	g.generateDefaultMetrics()
+	//g.generateDefaultMetrics()
 	g.generateCancelInterrupt()
 	g.generateCmdMain()
 	if g.generateFirstTime {
@@ -1806,12 +1806,12 @@ func (g *generateCmd) generateVars() {
 		g.code.Raw().Var().Id("fs").Op("=").Qual("flag", "NewFlagSet").Call(
 			jen.Lit(g.name), jen.Qual("flag", "ExitOnError"),
 		)
-		g.code.NewLine()
-		g.code.Raw().Var().Id("debugAddr").Op("=").Id("fs").Dot("String").Call(
-			jen.Lit("debug-addr"),
-			jen.Lit(":8080"),
-			jen.Lit("Debug and metrics listen address"),
-		)
+		//g.code.NewLine()
+		//g.code.Raw().Var().Id("debugAddr").Op("=").Id("fs").Dot("String").Call(
+		//	jen.Lit("debug-addr"),
+		//	jen.Lit(":8080"),
+		//	jen.Lit("Debug and metrics listen address"),
+		//)
 		g.code.NewLine()
 		g.code.Raw().Var().Id("httpAddr").Op("=").Id("fs").Dot("String").Call(
 			jen.Lit("http-addr"),
