@@ -599,6 +599,9 @@ func (g *generateHTTPTransportBase) Generate() (err error) {
 				}
 			}
 		}
+		metricPath := jen.Id("metricPath:=\"/metrics\"")
+		metric := jen.Id("m.Handle").Call(jen.Id("metricPath"), jen.Qual("github.com/prometheus/client_golang/prometheus/promhttp", "Handler").Call())
+		handles = append(handles, metricPath, metric)
 	} else {
 		for _, m := range g.serviceInterface.Methods {
 			handles = append(
@@ -610,7 +613,10 @@ func (g *generateHTTPTransportBase) Generate() (err error) {
 				),
 			)
 		}
-		handles = append(handles, jen.Id("m.Handle(\"/metrics\",promhttp.Handler())"))
+		metricPath := jen.Id("metricPath:=\"/metrics\"")
+		metric := jen.Id("m.Handle").Call(jen.Id("metricPath"), jen.Qual("github.com/prometheus/client_golang/prometheus/promhttp", "Handler").Call())
+		handles = append(handles, metricPath, metric)
+
 	}
 	var body []jen.Code
 	if g.gorillaMux {
