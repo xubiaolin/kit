@@ -599,9 +599,6 @@ func (g *generateHTTPTransportBase) Generate() (err error) {
 				}
 			}
 		}
-		metricPath := jen.Id("metricPath:=\"/metrics\"")
-		metric := jen.Id("m.Handle").Call(jen.Id("metricPath"), jen.Qual("github.com/prometheus/client_golang/prometheus/promhttp", "Handler").Call())
-		handles = append(handles, metricPath, metric)
 	} else {
 		for _, m := range g.serviceInterface.Methods {
 			handles = append(
