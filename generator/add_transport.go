@@ -610,6 +610,7 @@ func (g *generateHTTPTransportBase) Generate() (err error) {
 				),
 			)
 		}
+		handles = append(handles, jen.Id("m.Handle(\"/metrics\",promhttp.Handler())"))
 	}
 	var body []jen.Code
 	if g.gorillaMux {
